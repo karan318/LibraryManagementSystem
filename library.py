@@ -17,9 +17,11 @@ class Library:
     msgList.append("1: Book Manager")
     msgList.append("2: User Manager")
     msgList.append("3: Services Manager")
-    print(self.bookManager.bookDict)
+    
     # sys.exit(0)
     manager = menuPrinter.getInput(msgList, optionfunc)
+    print(manager.bookDict)
+    # sys.exit(0)
     manager.optionsAvailable()
 
 if __name__ == '__main__':

@@ -64,19 +64,15 @@ class BookManagement:
     newBook = Book(title, author, isbn)
     self.bookDict[isbn] = newBook
 
-    tempDict ={ isbn: 
-               {
-                 "title": title,
-                 "author": author,
-                 "isbn": isbn,
-                 "userId": None
-                }
-              }
-
-    storage.insertDatatoJson(self.bookPath,tempDict)
+    targetDict = {}
+    for isbn, book in self.bookDict.items():
+      tempDict = book.__dict__
+      targetDict[isbn] = tempDict
+    print(self.bookDict)
+    storage.insertDatatoJson(self.bookPath,targetDict)
     print(f"This is book is added: {title}")
   
-  # Tested
+  # Testeds
   def listBooks(self):
     for key, value in self.bookDict.items():
       print(
@@ -90,12 +86,12 @@ class BookManagement:
       targetCol = key
       targetValue = value
 
-    targetIsbn = []
+    targetIsbn = set()
     for isbn, book in self.bookDict.items():
       targetDict = book.__dict__
       for key, value in targetDict.items():
         if key == targetCol and value == targetValue:
-          targetIsbn.append(isbn)
+          targetIsbn.add(isbn)
 
     for isbn in targetIsbn:
       del self.bookDict[isbn]
@@ -108,16 +104,20 @@ class BookManagement:
       setattr(targetBook,key,value)
     storage.updateDatatoCSV(self.bookPath, targetIsbn, updateDict)
 
-  def search(self, targetString):
-    targetIsbn = []
+  def search(self):
+    menuMsg ={
+      'targetString': "Enter the string or substring you are searching"
+    }
+    searchDict = menuPrinter.addPrinter(menuMsg)
+    targetString = searchDict['targetString']
+    targetIsbn = set()
     for isbn,book in self.bookDict.items():
       targetDict = book.__dict__
       #print(targetDict)
       for key, value in targetDict.items():
-        print(value)
         # print(targetString)
         if value and targetString.lower() in value.lower():
-          targetIsbn.append(isbn)
+          targetIsbn.add(isbn)
 
     for isbn in targetIsbn:
       print(
