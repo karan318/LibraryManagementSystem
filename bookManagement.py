@@ -49,9 +49,9 @@ class BookManagement:
 
   def addBook(self):
     menuMsg = {
-      'isbn': "Enter Book ISBN",
-      'title': "Enter Book Title",
-      'author': "Enter Book Author"
+      'isbn': "Enter Book ISBN: ",
+      'title': "Enter Book Title: ",
+      'author': "Enter Book Author: "
     }
     addDict = menuPrinter.addPrinter(menuMsg)
     title = addDict['title']
@@ -80,6 +80,11 @@ class BookManagement:
       )
 
   def deleteBook(self, deleteDict):
+    msgMsg = [
+      "1: Based on ISBN",
+      "2": "Based on Title",
+      "3": "Based on Author"
+    ]
     targetCol = ""
     targetValue = ""
     for key, value in deleteDict.items():
@@ -106,7 +111,7 @@ class BookManagement:
 
   def search(self):
     menuMsg ={
-      'targetString': "Enter the string or substring you are searching"
+      'targetString': "Enter the string or substring you are searching: "
     }
     searchDict = menuPrinter.addPrinter(menuMsg)
     targetString = searchDict['targetString']

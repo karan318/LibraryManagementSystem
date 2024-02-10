@@ -1,7 +1,7 @@
 def getInput(msgList, optionfunc=None):
   for msg in msgList:
     print(msg)
-  inp = int(input("Enter any of the above option in integer"))
+  inp = int(input("Enter any of the above option in integer: "))
   if optionfunc:
     return optionfunc[inp]
   return inp
