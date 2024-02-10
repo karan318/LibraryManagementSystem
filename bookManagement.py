@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import storage
 import json
-
+import menuPrinter
 # import loggingSystem
 #loggingSystem.setup_logging()
 class BookManagement:
@@ -11,6 +11,24 @@ class BookManagement:
     self.headers = ['isbn', 'title', 'author', 'userId']
     self.bookPath = os.path.join(os.path.dirname(__file__), "books.json")
     self.bookDict = self.initalizeBooks()
+
+  def optionsAvailable(self):
+    optionfunc = {
+      1: self.addBook,
+      2: self.deleteBook,
+      3: self.updateBook,
+      4: self.search,
+      5: self.listBooks
+    }
+    msgList = []
+    msgList.append("1: Add")
+    msgList.append("2: Delete")
+    msgList.append("3: Update")
+    msgList.append("4: Search")
+    msgList.append("5: List")
+    option = menuPrinter.getInput(msgList)
+    optionfunc[option]()
+
 
   def initalizeBooks(self):
     self.bookDict = {}
@@ -29,7 +47,13 @@ class BookManagement:
     return bookObjDict
 
 
-  def addBook(self, addDict):
+  def addBook(self):
+    menuMsg = {
+      'isbn': "Enter Book ISBN",
+      'title': "Enter Book Title",
+      'author': "Enter Book Author"
+    }
+    addDict = menuPrinter.addPrinter(menuMsg)
     title = addDict['title']
     author = addDict['author']
     isbn = addDict['isbn']
