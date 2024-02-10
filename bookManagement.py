@@ -8,9 +8,9 @@ import storage
 #loggingSystem.setup_logging()
 class BookManagement:
   def __init__(self):
-    self.bookDict = self.initalizeBooks()
-    self.bookPath = os.path.join(os.path.dirname(__file__), "books.csv")
     self.headers = ['isbn', 'title', 'author', 'userId']
+    self.bookPath = os.path.join(os.path.dirname(__file__), "books.csv")
+    self.bookDict = self.initalizeBooks()
 
   def initalizeBooks(self):
     self.bookDict = {}
@@ -35,7 +35,7 @@ class BookManagement:
   def listBooks(self):
     for key, value in self.bookDict.items():
       print(
-          f"Name: {value.tiitle}, Author: {value.author}, ISBN: {value.isbn}, UserId: {value.userId"
+          f"Name: {value.tiitle}, Author: {value.author}, ISBN: {value.isbn}, UserId: {value.userId}"
       )
 
   def deleteBook(self, deleteDict):
