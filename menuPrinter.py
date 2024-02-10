@@ -1,9 +1,9 @@
 def getInput(msgList, optionfunc=None):
   for msg in msgList:
     print(msg)
-  inp = int(input("Enter any of the above option in integer: "))
+  inp = input("Enter response: ")
   if optionfunc:
-    return optionfunc[inp]
+    return optionfunc[int(inp)]
   return inp
 
 def addPrinter(msgDict):

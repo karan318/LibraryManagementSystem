@@ -8,7 +8,6 @@ import menuPrinter
 #loggingSystem.setup_logging()
 class BookManagement:
   def __init__(self):
-    self.headers = ['isbn', 'title', 'author', 'userId']
     self.bookPath = os.path.join(os.path.dirname(__file__), "books.json")
     self.bookDict = self.initalizeBooks()
 
@@ -26,7 +25,7 @@ class BookManagement:
     msgList.append("3: Update")
     msgList.append("4: Search")
     msgList.append("5: List")
-    option = menuPrinter.getInput(msgList)
+    option = int(menuPrinter.getInput(msgList))
     optionfunc[option]()
 
 
@@ -79,12 +78,17 @@ class BookManagement:
           f"Name: {value.title}, Author: {value.author}, ISBN: {value.isbn}, UserId: {value.userId}"
       )
 
-  def deleteBook(self, deleteDict):
-    msgMsg = [
-      "1: Based on ISBN",
-      "2": "Based on Title",
-      "3": "Based on Author"
+  def deleteBook(self):
+    msgList = [
+      "Select option based on which delete should work",
+      "1: ISBN",
+      "2: Title",
+      "3: Author"
     ]
+    inp = int(menuPrinter.getInput(msgList))
+    targetString = menuPrinter.getInput([msgList[inp]])
+    deleteDict = {(msgList[inp]).split(':')[1].strip().lower():targetString}
+
     targetCol = ""
     targetValue = ""
     for key, value in deleteDict.items():
@@ -98,11 +102,22 @@ class BookManagement:
         if key == targetCol and value == targetValue:
           targetIsbn.add(isbn)
 
+    if not targetIsbn:
+      print("Nothing is deleted, There is no match")
+      return 
+
     for isbn in targetIsbn:
       del self.bookDict[isbn]
     storage.deletetDataFromJson(self.bookPath, deleteDict)
+    print("Successfully delete")
 
-  def updateBook(self, updateDict):
+  def updateBook(self):
+    menuMsg = {
+      'isbn': "Enter Book ISBN: ",
+      'title': "Enter updated Book Title: ",
+      'author': "Enter updated Book Author: "
+    }
+    updateDict = menuPrinter.addPrinter(menuMsg)
     targetIsbn = updateDict['isbn']
     targetBook = self.bookDict[targetIsbn]
     for key, value in updateDict.items():
