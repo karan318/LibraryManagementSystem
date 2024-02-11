@@ -67,7 +67,7 @@ class BookManagement:
     for isbn, book in self.bookDict.items():
       tempDict = book.__dict__
       targetDict[isbn] = tempDict
-    print(self.bookDict)
+    # print(self.bookDict)
     storage.insertDatatoJson(self.bookPath,targetDict)
     print(f"This is book is added: {title}")
   

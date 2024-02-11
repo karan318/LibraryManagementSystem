@@ -26,7 +26,8 @@ class Library:
 
 if __name__ == '__main__':
   library = Library()
-  library.mainMenu()
+  while(True):
+    library.mainMenu()
 
 
 
